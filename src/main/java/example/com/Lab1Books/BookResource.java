@@ -17,37 +17,40 @@ import lombok.extern.java.Log;
 // @Produces(MediaType.APPLICATION_JSON)
 public class BookResource {
 
-    private BookServiceImpl bookService;
+    private BookService bookService;
 
     @Inject
-    public BookResource(BookServiceImpl booksService) {
+    public BookResource(BookService booksService) {
         this.bookService = booksService;
     }
 
     public BookResource() { }
 
-    //"http://localhost:8080/api/books"
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getBooks() {
-        return Response.ok(new ResponseDto(bookService.getAllBooks())).build();
-
-
-//        return new ResponseDto(bookService.getAllBooks()); ändra public Response till public ResonseDto också
-
-    }
-
+    // getOneBook
     //"http://localhost:8080/api/books/4"
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public BookResponse getOneBook(@PathParam("id") Long id) {
         return bookService.getBookById(id);
+
     }
+
+
+    // Hämta alla böker
+    //"http://localhost:8080/api/books"
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllBooks() {
+        return Response.ok(new ResponseDto(bookService.getAllBooks())).build();
+
+//        return new ResponseDto(bookService.getAllBooks()); ändra public Response till public ResonseDto också
+    }
+
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createNewBook(@Valid CreateBook book) {
+    public Response createBook(@Valid CreateBook book) {
 //        if (book == null) {
 //            return Response.status(Response.Status.BAD_REQUEST).entity("Book cannot be null").build();
 //        }
@@ -58,6 +61,18 @@ public class BookResource {
                 .header("Location", "/api/books" + newBook.getId())
                 .build();
     }
+
+
+    @PUT
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateBook(@Valid UpdateBook book, @PathParam("id") Long id) {
+        bookService.updateBook(book, id);
+        return Response.ok().build();
+
+//        return Response.notModified().build();
+    }
+
 
     @PATCH
     @Path("{id}")
@@ -71,15 +86,10 @@ public class BookResource {
 
     }
 
-    @PUT
+    @DELETE
     @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateBook(@Valid UpdateBook book, @PathParam("id") Long id) {
-        bookService.updateBook(book, id);
-        return Response.ok().build();
-
-//        return Response.notModified().build();
-
+    public Response deleteBook(@PathParam("id") Long id) {
+        bookService.deleteBook(id);
+        return Response.noContent().build();
     }
-
 }

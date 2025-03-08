@@ -19,4 +19,8 @@ public interface BookRepository extends CrudRepository<BookEntity, Long> {
 
     @Find
     List<BookEntity> findByTitleContainingIgnoreCase(String title);
+
+    @Find
+    List<BookEntity> findByTitleContainingIgnoreCaseAndAuthorContainingIgnoreCase(String title, String author);
+
 }

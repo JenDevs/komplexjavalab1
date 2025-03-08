@@ -8,10 +8,15 @@ import example.com.Lab1Books.entity.BookEntity;
 import java.util.List;
 
 public interface BookService {
-    List<BookResponse> getAllBooks();
     BookResponse getBookById(Long id);
+    List<BookResponse> getAllBooks();
+
     BookEntity createBook(CreateBook book);
+
     void updateBook(UpdateBook book, Long id);
+
+    void deleteBook(Long id);
+
 }
 
 
