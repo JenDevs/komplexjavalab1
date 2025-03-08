@@ -4,6 +4,7 @@ import example.com.Lab1Books.entity.BookEntity;
 import jakarta.data.repository.CrudRepository;
 import jakarta.data.repository.Find;
 import jakarta.data.repository.Repository;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
 import java.util.Optional;

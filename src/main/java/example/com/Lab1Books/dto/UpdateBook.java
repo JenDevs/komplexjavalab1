@@ -2,14 +2,15 @@ package example.com.Lab1Books.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 
 public record UpdateBook(
-        @NotNull Long id,
-        @NotBlank String author,
-        @NotBlank String title,
-        @NotBlank String description,
-        @NotBlank @NotNull String isbn,
-        @NotBlank @NotNull LocalDate releaseDate) {
+        String author,
+        String title,
+        String description,
+        @Pattern(regexp = "^(\\d{10}|\\d{13})$", message = "ISBN must be 10 or 13 digits") String isbn,
+        LocalDate releaseDate) {
+
 }

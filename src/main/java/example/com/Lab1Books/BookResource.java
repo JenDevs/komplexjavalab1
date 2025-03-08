@@ -50,28 +50,25 @@ public class BookResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response createBook(@Valid CreateBook book) {
-//        if (book == null) {
-//            return Response.status(Response.Status.BAD_REQUEST).entity("Book cannot be null").build();
-//        }
         BookEntity newBook = bookService.createBook(book);
-        log.info("New book created: " + newBook);
         return Response
                 .status(Response.Status.CREATED)
-                .header("Location", "/api/books" + newBook.getId())
+                .header("Location", "/api/books/" + newBook.getId())
+                .entity(newBook)
                 .build();
     }
 
 
-    @PUT
-    @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateBook(@Valid UpdateBook book, @PathParam("id") Long id) {
-        bookService.updateBook(book, id);
-        return Response.ok().build();
-
-//        return Response.notModified().build();
-    }
+//    @PUT
+//    @Path("{id}")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response updateBook(@Valid UpdateBook book, @PathParam("id") Long id) {
+//        bookService.updateBook(book, id);
+//        return Response.ok().build();
+//
+//    }
 
 
     @PATCH
@@ -80,10 +77,6 @@ public class BookResource {
     public Response updateBookFieldByField(@Valid UpdateBook book, @PathParam("id") Long id) {
         bookService.updateBook(book, id);
         return Response.ok().build();
-
-
-//        return Response.notModified().build();
-
     }
 
     @DELETE
