@@ -1,11 +1,7 @@
 package example.com.Lab1Books;
 
 import example.com.Lab1Books.entity.BookEntity;
-import jakarta.data.repository.CrudRepository;
-import jakarta.data.repository.Find;
-import jakarta.data.repository.Repository;
-import jakarta.enterprise.context.ApplicationScoped;
-
+import jakarta.data.repository.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,4 +20,8 @@ public interface BookRepository extends CrudRepository<BookEntity, Long> {
     @Find
     List<BookEntity> findByTitleContainingIgnoreCaseAndAuthorContainingIgnoreCase(String title, String author);
 
+    @Find
+    List<BookEntity> findByAuthorContainingIgnoreCaseAndGenreContainingIgnoreCase(String author, String genre);
+
+    // List<BookEntity> findByAuthorContainingIgnoreCaseAndTitleContainingIgnoreCase(String author, String title);
 }

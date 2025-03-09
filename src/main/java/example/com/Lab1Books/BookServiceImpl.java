@@ -1,6 +1,5 @@
 package example.com.Lab1Books;
 
-
 import example.com.Lab1Books.dto.BookResponse;
 import example.com.Lab1Books.dto.CreateBook;
 import example.com.Lab1Books.dto.UpdateBook;
@@ -38,6 +37,45 @@ public class BookServiceImpl implements BookService {
                 .filter(Objects::nonNull)
                 .toList();
     }
+
+
+    @Override
+    public List<BookResponse> filterByAuthor(String author) {
+        if (author == null || author.isBlank()) {
+            throw new ValidationException("Author must be provided.");
+        }
+
+        List<BookEntity> books = repository.findByAuthorContainingIgnoreCase(author);
+        return books.stream().map(BookMapper::mapToResponse).toList();
+    }
+
+
+    @Override
+    public List<BookResponse> filterByTitleAndAuthor(String title, String author) {
+        if (title == null || title.trim().isEmpty() || author == null || author.trim().isEmpty()) {
+            throw new ValidationException("Both title and author must be provided.");
+        }
+
+        List<BookEntity> books = repository.findByTitleContainingIgnoreCaseAndAuthorContainingIgnoreCase(title, author);
+
+        return books.stream()
+                .map(BookMapper::mapToResponse)
+                .toList();
+    }
+
+    @Override
+    public List<BookResponse> filterByAuthorAndGenre(String author, String genre) {
+        if (author == null || author.trim().isEmpty() || genre == null || genre.trim().isEmpty()) {
+            throw new ValidationException("Both author and genre must be provided.");
+        }
+
+        List<BookEntity> filteredBooks = repository.findByAuthorContainingIgnoreCaseAndGenreContainingIgnoreCase(author, genre);
+
+        return filteredBooks.stream()
+                .map(BookMapper::mapToResponse)
+                .toList();
+    }
+
 
     @Override
     @Transactional

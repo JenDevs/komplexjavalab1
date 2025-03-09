@@ -11,6 +11,7 @@ public record CreateBook(
         @NotBlank String title,
         @NotBlank String description,
         @NotBlank @NotNull String isbn,
+        @NotBlank String genre,
         @NotNull LocalDate releaseDate) {
 
 

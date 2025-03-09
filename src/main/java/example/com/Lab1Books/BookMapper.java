@@ -13,7 +13,7 @@ public class BookMapper {
     public static BookResponse mapToResponse(BookEntity bookEntity) {
         if( null == bookEntity )
             return null;
-        return new BookResponse(bookEntity.getId(), bookEntity.getAuthor(), bookEntity.getTitle(), bookEntity.getDescription(),bookEntity.getIsbn(), bookEntity.getReleaseDate());
+        return new BookResponse(bookEntity.getId(), bookEntity.getAuthor(), bookEntity.getTitle(), bookEntity.getDescription(),bookEntity.getIsbn(), bookEntity.getGenre(),bookEntity.getReleaseDate());
     }
 
     public static BookEntity mapToEntityCreate(CreateBook book) {
@@ -25,6 +25,7 @@ public class BookMapper {
         newBook.setAuthor(book.author());
         newBook.setDescription(book.description());
         newBook.setIsbn(book.isbn());
+        newBook.setGenre(book.genre());
         newBook.setReleaseDate(book.releaseDate());
         return newBook;
     }
@@ -36,6 +37,7 @@ public class BookMapper {
         if (book.author() != null) existingBook.setAuthor(book.author());
         if (book.description() != null) existingBook.setDescription(book.description());
         if (book.isbn() != null) existingBook.setIsbn(book.isbn());
+        if (book.genre() != null) existingBook.setGenre(book.genre());
         if (book.releaseDate() != null) existingBook.setReleaseDate(book.releaseDate());
     }
 

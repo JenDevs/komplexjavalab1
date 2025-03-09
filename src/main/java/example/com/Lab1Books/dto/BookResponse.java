@@ -2,7 +2,6 @@ package example.com.Lab1Books.dto;
 
 import example.com.Lab1Books.entity.BookEntity;
 
-import java.awt.print.Book;
 import java.time.LocalDate;
 
 /**
@@ -10,10 +9,10 @@ import java.time.LocalDate;
  */
 
 // gör samma för create, och genom mapToEntity, och sedan resource.
-public record BookResponse(Long id, String author, String title, String description, String isbn, LocalDate releaseDate) {
+public record BookResponse(Long id, String author, String title, String description, String isbn, String genre, LocalDate releaseDate) {
 
     public BookResponse(BookEntity bookEntity) {
-        this(bookEntity.getId(),bookEntity.getAuthor(),bookEntity.getTitle(),bookEntity.getDescription(),bookEntity.getIsbn(),bookEntity.getReleaseDate());
+        this(bookEntity.getId(),bookEntity.getAuthor(),bookEntity.getTitle(),bookEntity.getDescription(),bookEntity.getIsbn(),bookEntity.getGenre(),bookEntity.getReleaseDate());
     }
 
 

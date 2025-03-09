@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-import java.awt.print.Book;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -41,6 +41,10 @@ public class BookEntity {
     @Pattern(regexp = "^(\\d{10}|\\d{13})$", message = "ISBN must be 10 or 13 digits")
     private String isbn;
 
+    @Column(name = "genre", nullable = false)
+    @NotBlank(message = "Genre is required")
+    private String genre;
+
     @Column(name = "release_date", nullable = false)
     @NotNull(message = "Release date cannot be null")
     private LocalDate releaseDate;
@@ -48,12 +52,13 @@ public class BookEntity {
     public BookEntity() {
     }
 
-    public BookEntity(String author, String title, String description, String isbn, LocalDate releaseDate) {
+    public BookEntity(String author, String title, String description, String isbn, String genre, LocalDate releaseDate) {
         this.author = author;
         this.title = title;
         this.description = description;
         this.isbn = isbn;
         this.releaseDate = releaseDate;
+        this.genre = genre;
     }
 
     public Long getId() {
@@ -75,6 +80,8 @@ public class BookEntity {
     public String getIsbn() {
         return isbn;
     }
+
+    public String getGenre() {return genre;}
 
     public LocalDate getReleaseDate() {
         return releaseDate;
@@ -101,6 +108,8 @@ public class BookEntity {
         this.isbn = isbn;
     }
 
+    public void setGenre(String genre) {this.genre = genre;}
+
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
@@ -115,6 +124,7 @@ public class BookEntity {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", isbn='" + isbn + '\'' +
+                ", genre='" + genre + '\'' +
                 ", releaseDate=" + releaseDate +
                 '}';
     }

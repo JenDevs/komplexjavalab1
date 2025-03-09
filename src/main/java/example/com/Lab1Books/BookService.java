@@ -17,6 +17,14 @@ public interface BookService {
 
     void deleteBook(Long id);
 
+    // List<BookResponse>filterByAuthorAndTitle(String author, String title);
+
+    List<BookResponse> filterByAuthor(String author);
+
+    List<BookResponse> filterByTitleAndAuthor(String title, String author);
+
+    List<BookResponse> filterByAuthorAndGenre(String author, String genre);
+
 }
 
 
