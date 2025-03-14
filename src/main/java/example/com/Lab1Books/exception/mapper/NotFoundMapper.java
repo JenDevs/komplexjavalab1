@@ -1,17 +1,22 @@
 package example.com.Lab1Books.exception.mapper;
 
-import example.com.Lab1Books.exception.NotFound;
+import example.com.Lab1Books.exception.NotFoundException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
+import java.util.Map;
+
 @Provider
-public class NotFoundMapper implements ExceptionMapper<NotFound> {
+public class NotFoundMapper implements ExceptionMapper<NotFoundException> {
+
 
     @Override
-    public Response toResponse(NotFound notFound) {
-        return Response.status(Response.Status.NOT_FOUND)
-                .entity(notFound.getMessage())
+    public Response toResponse(NotFoundException notFound) {
+
+        return Response
+                .status(Response.Status.NOT_FOUND)
+                .entity(Map.of("error",notFound.getMessage()))
                 .build();
     }
 }
