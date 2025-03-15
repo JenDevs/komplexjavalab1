@@ -55,14 +55,14 @@ RUN touch ${JBOSS_HOME}/standalone/deployments/postgresql.jar.dodeploy && \
     chmod 664 ${JBOSS_HOME}/standalone/deployments/postgresql.jar
 
 # Copy CLI scripts for datasource and driver configuration
-COPY --chown=jboss:0 docker/configure-datasource.cli /tmp/
-COPY --chown=jboss:0 docker/entrypoint.sh /opt/jboss/
+COPY --chown=jboss:0 configure-datasource.cli /tmp/
+COPY --chown=jboss:0 entrypoint.sh /opt/jboss/
 
 # Make the entrypoint script executable
 RUN chmod +x /opt/jboss/entrypoint.sh
 
 # Copy your application WAR file
-COPY --chown=jboss:0 --from=build /opt/Lab1Books/target/Lab1Books.war ${JBOSS_HOME}/standalone/deployments/
+COPY --chown=jboss:0 --from=build /opt/Lab1Books/target/*.war ${JBOSS_HOME}/standalone/deployments/
 
 # Set safe default environment variables
 ENV DB_HOST=db-host-placeholder \
